@@ -18,7 +18,7 @@ class RNN(nn.Module):
         if self.rnn_type == 'GRU':
             self.rnn = nn.GRU(hidden_size, hidden_size, n_layers, dropout=self.dropout_rate)
         else:
-            self.rnn - nn.LSTM(hidden_size, hidden_size, n_layers, dropout=self.dropout_rate)
+            self.rnn = nn.LSTM(hidden_size, hidden_size, n_layers, dropout=self.dropout_rate)
 
         self.decoder = nn.Linear(hidden_size, output_size)
 
