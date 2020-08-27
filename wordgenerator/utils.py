@@ -48,6 +48,13 @@ def tensor_from_sentences(sentences, vocab, max_len=30):
     return X, Y
 
 
+def tensor_from_single_batch(sentence, vocab):
+    words = sentence.split(' ')
+    idx_ip = [vocab.index(w) if w in vocab else 0 for w in words]
+    idx_ip = torch.tensor(idx_ip, dtype=torch.long)
+    return idx_ip
+
+
 def batchify(X, Y, batch_size=100):
     batches_x = []
     batches_y = []
@@ -72,7 +79,7 @@ def predict(model, sequence, idx2vocab, len_pred=10, device='cpu'):
     prediction, _ = model(sequence)
 
     size = prediction.size()
-    output = prediction.view(-1, size[0]*size[1], size[-1])
+    output = prediction.view(-1, size[0] * size[1], size[-1])
     output = torch.squeeze(output)
     output = torch.argmax(output, dim=0)
     # print(output)
