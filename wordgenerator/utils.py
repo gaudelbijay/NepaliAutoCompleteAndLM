@@ -64,3 +64,21 @@ def batchify(X, Y, batch_size=100):
         batches_x.append(x)
         batches_y.append(y)
     return batches_x, batches_y
+
+
+def predict(model, sequence, idx2vocab, len_pred=10, device='cpu'):
+    sequence = sequence.to(device)
+    sequence = torch.unsqueeze(sequence, 0)
+    prediction, _ = model(sequence)
+
+    size = prediction.size()
+    output = prediction.view(-1, size[0]*size[1], size[-1])
+    output = torch.squeeze(output)
+    output = torch.argmax(output, dim=0)
+    # print(output)
+
+    out = ' '
+    for w in output[:len_pred]:
+        out += '\t' + idx2vocab[w]
+
+    print('output: ', out[1:], '\n')
