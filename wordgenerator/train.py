@@ -9,7 +9,7 @@ def train(model, criterion, epochs, X, Y):
     rm = RunManager(len(X))
     for run in RunBuilder.get_runs(config.params):
         optimizer = torch.optim.Adam(model.parameters(), lr=run.lr)
-        train_X, train_Y = utils.batchify(X, Y)
+        train_X, train_Y = utils.batchify(X, Y, run.batch_size)
 
         rm.begin_run(run, model)
         for e in range(epochs):
