@@ -69,7 +69,7 @@ class RunManager(object):
         self.run_data.append(result)
 
     def track_loss(self, loss, batch):
-        self.epoch_loss += loss.item()*batch[0].shape[0]
+        self.epoch_loss += loss.item() #*batch[0].shape[0]
 
-    def save(self, filedir='../data/', filename='result'):
-        pd.DataFrame.from_dict(self.run_data, orient='column').to_csv(f'{filedir}/{filename}.csv')
+    def save(self, filename='result'):
+        pd.DataFrame.from_dict(self.run_data, orient='columns').to_csv(f'{filename}.csv')
