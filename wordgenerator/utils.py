@@ -73,6 +73,16 @@ def batchify(X, Y, batch_size=100):
     return batches_x, batches_y
 
 
+def compute_acc(prediction,y):
+    pred_2d = torch.argmax(prediction, dim=2)
+    y_2d = torch.argmax(y, dim=2)
+
+    equality = torch.eq(pred_2d, y_2d)
+    total = equality.numel()
+    valid = torch.sum(equality).item()
+
+    return valid / total
+
 def predict(model, sequence, idx2vocab, len_pred=10, device='cpu'):
     sequence = sequence.to(device)
     sequence = torch.unsqueeze(sequence, 0)
