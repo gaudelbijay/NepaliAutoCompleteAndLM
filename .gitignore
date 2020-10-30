@@ -1,1 +1,2 @@
-/scrapper/.ipynb_checkpoints
+*.ipynb_checkpoints
+*__pyccahe__
